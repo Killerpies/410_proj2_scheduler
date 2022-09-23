@@ -8,6 +8,7 @@
 //TODO fill in content
 
 #include "../includes/scheduler.h"
+#include "./includes/CPU.h"
 using namespace std;
 
 
@@ -19,6 +20,7 @@ using namespace std;
 	//add a process, either a new one or one that
 	//had been running on the CPU and has been preempted
 	void Scheduler::add(PCB p){
+//		CPU.get_process_off_core;
 		ready_q->push(p);
 	}
 
@@ -38,16 +40,20 @@ using namespace std;
 	//if process has completed (used all its remaining_cpu_time) or
 	//if we are using a preemptive scheduling algorithm and the
 	//timeslice is over then its time to switch processes
-	//returns:ready_q->pop();
+	//returns:
 	//true - switch processes
 	//false - do not switch
 	bool Scheduler::time_to_switch_processes(int tick_count, PCB &p){
-		return true;
+		if (p.isEmpty()){
+			return true;
+		}
+		if (p.remaining_cpu_time <= 0){
+			return true;
+		}
+		return false;
 	}
 
 	// sort  ready_q based on the scheduler algorithm used whenever add(PCB p) is called
-	void Scheduler::sort(){
-		//pure virtual function
-	}
+	void Scheduler::sort(){}		//pure virtual functionScheduler
 
 

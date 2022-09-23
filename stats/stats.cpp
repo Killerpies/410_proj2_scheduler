@@ -7,9 +7,12 @@
 
 //TODO fill in content
 #include "../includes/stats.h"
+#include "../includes/CPU.h"
+using namespace std;
 
-	Stats::Stats(std::vector<PCB> &finished_vector){}
-//	virtual ~Stats(){};
+	Stats::Stats(std::vector<PCB> &finished_vector): vec(&finished_vector),av_wait_time(0), av_turnaround_time(0), av_response_time(0){
+	}
+//	virtual Stats::~Stats(){}
 
 	//loops thru vec, prints 1 line for each process using the following format
 	//Process 1 Required CPU time:2  arrived:0 started:0 finished:2
@@ -21,7 +24,16 @@
 	//response_time per process = start_time - arrival_time
 	//this funtion returns the average over all processes
 	float Stats::get_av_response_time(){
-		return 1.0;
+		float average = 0;
+		int total = 0;
+		for (auto it = vec->begin(); it != vec->end(); ++it){
+			PCB temp = *it;
+			total += temp.start_time - temp.arrival_time;
+		}
+		if (average != 0 && total != 0){
+			average = total / vec->size();
+		}
+		return average;
 	}
 
 	//after a process is placed in the ready_q, how long does
