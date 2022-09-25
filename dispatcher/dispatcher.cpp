@@ -22,8 +22,6 @@ using namespace std;
 
 	//place the current process on the CPU for execution
 	void Dispatcher::put_on_CPU(PCB  &process){
-//		cout << "put on cpu" << endl;
-//		cout << process.arrival_time << endl;
 		cpu->put_process_on_core(process);
 	}
 
