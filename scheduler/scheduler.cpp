@@ -8,7 +8,6 @@
 //TODO fill in content
 
 #include "../includes/scheduler.h"
-#include "./includes/CPU.h"
 using namespace std;
 
 
@@ -20,8 +19,8 @@ using namespace std;
 	//add a process, either a new one or one that
 	//had been running on the CPU and has been preempted
 	void Scheduler::add(PCB p){
-//		CPU.get_process_off_core;
 		ready_q->push(p);
+		sort();
 	}
 
 	//get next process
@@ -34,7 +33,7 @@ using namespace std;
 	//returns true if there are no  jobs in the readyQ
 	//false otherwise
 	bool Scheduler::isEmpty(){
-		return ready_q->empty();
+		return ready_q->size() <= 0;
 	}
 
 	//if process has completed (used all its remaining_cpu_time) or
@@ -44,6 +43,7 @@ using namespace std;
 	//true - switch processes
 	//false - do not switch
 	bool Scheduler::time_to_switch_processes(int tick_count, PCB &p){
+		sort();
 		if (p.isEmpty()){
 			return true;
 		}

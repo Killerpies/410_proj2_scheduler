@@ -25,12 +25,12 @@ using namespace std;
 	//this funtion returns the average over all processes
 	float Stats::get_av_response_time(){
 		float average = 0;
-		int total = 0;
+		float total = 0;
 		for (auto it = vec->begin(); it != vec->end(); ++it){
 			PCB temp = *it;
 			total += temp.start_time - temp.arrival_time;
 		}
-		if (average != 0 && total != 0){
+		if (total != 0){
 			average = total / vec->size();
 		}
 		return average;
@@ -41,7 +41,16 @@ using namespace std;
 	//turnaround time per process = finish_time - arrival_time
 	//this funtion returns the average over all processes
 	float Stats::get_av_turnaround_time(){
-		return 1.0;
+		float average = 0;
+		float total = 0;
+		for (auto it = vec->begin(); it != vec->end(); ++it){
+			PCB temp = *it;
+			total += temp.finish_time - temp.arrival_time;
+		}
+		if (total != 0){
+			average = total / vec->size();
+		}
+		return average;
 	}
 
 	//after a process is placed in the ready_q, how much time does it
@@ -49,5 +58,14 @@ using namespace std;
 	//wait time per process = finish_time - arrival_time-required_CPU_time
 	//this funtion returns the average over all processes
 	float Stats::get_av_wait_time(){
-		return 1.0;
+		float average = 0;
+		float total = 0;
+		for (auto it = vec->begin(); it != vec->end(); ++it){
+			PCB temp = *it;
+			total += temp.finish_time - temp.arrival_time - temp.required_cpu_time;
+		}
+		if (total != 0){
+			average = total / vec->size();
+		}
+		return average;
 	}

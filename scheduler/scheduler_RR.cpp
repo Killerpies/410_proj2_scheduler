@@ -19,13 +19,14 @@ using namespace std;
 	//override base class behaviour if necessary, otherwise call it
 	bool  Scheduler_RR::time_to_switch_processes(int tick_count, PCB &p){
 		preemptive = true;
-//		p.remaining_cpu_time -= 1;
-		cout << "HERESchedular_RR.cpp Time to Switch" << endl;
-		cout << p.remaining_cpu_time << endl;
+		time_slice = 10;
 		if (p.isEmpty()){
 			return true;
 		}
 		if (p.remaining_cpu_time <= 0){
+			return true;
+		}
+		if (tick_count > 1){
 			return true;
 		}
 		p.remaining_cpu_time -= 1;
